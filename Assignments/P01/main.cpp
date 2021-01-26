@@ -13,8 +13,10 @@
 //
 /////////////////////////////////////////////////////////////////////////////////
 #include <iostream>
+#include <fstream>
+#include <iomanip>
 using namespace std;
-/**
+/** 
  * ArrayStack
  * 
  * Description:
@@ -30,9 +32,10 @@ using namespace std;
 class ArrayStack{
 private:
 int *A;           // pointer to array of int's
-int size;         // current max stack size
 int top;          // top of stack 
 public:
+double size;         // current max stack size
+int ct = 0;           // count of times stack resizes
 /**
   * ArrayStack
   * 
@@ -97,6 +100,23 @@ return (top <= -1);
 bool Full(){
 return (top >= size-1);
   }
+
+/**
+  * Public bool: TooSmall
+  * 
+  * Description:
+  *      Stack too small?
+  * 
+  * Params:
+  *      NULL
+  * 
+  * Returns:
+  *      [bool] true = full
+  */
+bool TooSmall(){
+  return (size > 10 && top <= size * 0.15);
+}
+
 /**
   * Public int: Peek
   * 
@@ -128,13 +148,13 @@ return -99; // some sentinel value
   * Returns:
   *      [int] top value if any
   */
-int Pop(){
+void Pop(){
 if(!Empty()){
-return A[top--];
+    top--;
     }
-return -99; // some sentinel value
-// not a good solution
-  }
+    CheckResize();
+}
+
 /**
   * Public void: Print
   * 
@@ -153,6 +173,34 @@ for(int i=0;i<=top;i++){
     }
     cout<<endl;
   } 
+
+/**
+  * Public void: CheckResize
+  * 
+  * Description:
+  *      Resizes the container for the stack by doubling
+  *      its capacity or havling its capacity
+  * 
+  * Params:
+  *      NULL
+  * 
+  * Returns:
+  *      NULL
+  */
+void CheckResize()
+{
+  if(Full())
+  {
+    ContainerGrow();
+    ct++;
+    }
+  if(TooSmall())
+  {
+    ContainerShrink();
+    ct++;
+  }
+}
+
 /**
   * Public bool: Push
   * 
@@ -163,20 +211,14 @@ for(int i=0;i<=top;i++){
   *      [int] : item to be added
   * 
   * Returns:
-  *      [bool] ; success = true
+  *      
   */
-bool Push(int x){
-if(Full()){
-Resize();
-    }
-if(!Full()){
+void Push(int x){
+CheckResize();
       A[++top] = x;
-return true;
-    }
-return false;
   }
 /**
-  * Public void: Resize
+  * Public void: ContainerGrow
   * 
   * Description:
   *      Resizes the container for the stack by doubling
@@ -188,7 +230,7 @@ return false;
   * Returns:
   *      NULL
   */
-void Resize(){
+void ContainerGrow(){
 int newSize = size*2;       // double size of original
 int *B = new int[newSize];  // allocate new memory
 for(int i=0;i<size;i++){    // copy values to new array
@@ -198,21 +240,82 @@ delete [] A;                // delete old array
     size = newSize;             // save new size
     A = B;                      // reset array pointer
   }
+
+/**
+  * Public void: ContainerShrink
+  * 
+  * Description:
+  *      Resizes the container for the stack by dividing
+  *      its capacity by two
+  * 
+  * Params:
+  *      NULL
+  * 
+  * Returns:
+  *      NULL
+  */
+
+void ContainerShrink(){ 
+int newSize = size / 2;       // half size of original
+int *C = new int[newSize];  // allocate new memory
+for(int i=0;i<size / 2;i++){    // copy values to new array
+      C[i] = A[i];
+    }
+delete [] A;                // delete old array
+    size = newSize;             // save new size
+    A = C;                      // reset array pointer
+  }
+
 };
 // MAIN DRIVER
 // Simple Array Based Stack Usage:
 int main() {
+  ofstream outfile;
+  outfile.open("Prog 1 output");
+
+  outfile << "######################################################################\n"
+        <<"     Assignment 4 - Resizing the Stack\n" 
+        <<"     CMPS 3013\n"
+        <<"     Joshua Williams \n\n";
+  
   ArrayStack stack;
-int r = 0;
-for(int i=0;i<20;i++){
-    r = rand() % 100;
-    r = i+1;
-if(!stack.Push(r)){
-      cout<<"Push failed"<<endl;
+
+  ifstream fin;
+  int num;                  //Number from infile
+  int max = stack.size;     //Tracks stack max size
+  int FinSize;              //Is the final size of stack
+
+  fin.open("nums_test.dat");
+  while(!fin.eof())
+  {
+    fin >> num;
+
+    if (num%2==0)
+    {
+      stack.Push(num);
+      if (max < stack.size)
+      {
+        max = stack.size;
+      }
     }
+    else
+    {
+      stack.Pop();
+    }
+    FinSize = stack.size;
   }
-for(int i=0;i<7;i++){
-    stack.Pop();
-  }
-  stack.Print();
-}
+  int count = stack.ct;     //Tracks number of time stack resizes
+
+  outfile <<"     Max Stack Size: "
+          << max
+          <<"\n     End Stack Size: "
+          << FinSize
+          <<"\n     Stack Resized: "
+          <<count
+          <<" times\n\n"
+          <<"######################################################################";
+outfile.close();
+
+return 0;
+ }
+
