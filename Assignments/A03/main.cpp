@@ -1,13 +1,62 @@
-
+/*****************************************************************************
+*                    
+*  Author:           Joshua Williams
+*  Email:            jbrockwilliams@gmail.com
+*  Label:            A03
+*  Title:            Linked List Class
+*  Course:           CMPS 3013
+*  Semester:         Spring 2021
+* 
+*  Description:
+*        This program implements a class that allows a linked list to be used just like 
+*        an array. It overloads the "[]" (square brackets) to simulate accessing seperate 
+*        array elements, but really it traverses the list to find the specified node using
+*        an index value. It also overloads the "+" and "-" signs allowing a user to "add"
+*        or "push" items onto the end of the list, as well as "pop" items off the end of our 
+*        array. This class is not meant to replace the STL vector library, its simply a project
+*        to introduce the beginnings of creating complex / abstract data types. 
+*        
+*  Usage: 
+*       - $ ./main filename
+*       - This will read in a file containing whatever values to be read into our list/array. 
+*       
+*  Files:            
+*       main.cpp    : driver program 
+*       list.h      : header file with list defintion
+*       list.cpp    : list implementation
+*****************************************************************************/
 #include <iostream>
 
 using namespace std;
 
-int A[100];
+int A[100];                                         //Array Variable for 100 intergers
+
+/**
+ * Node
+ * 
+ * Description:
+ *      This Struct implements two methods that perform 
+ *      the creation of a Node pointer in a linked list
+ *     
+ * Public Methods:
+ *                                                     
+ *      void                Node ()
+ *      void                Node (int n)
+ * 
+ * Usage: 
+ * 
+ *      Node ();                                    // Creates an instance of a Node pointer 
+ *                                                
+ *      Node (int n);                               // Creates an instance of a Node Pointer
+ *                                                  // with int n as it's value
+ */
+
 
 struct Node {
-    int x;
-    Node *next;
+    int x;                                          //Integer used as value in Node intialization 
+    
+    Node *next;                                     //Pointer that points to the next memory location
+                                                    //in the linked list 
     Node() {
         x = -1;
         next = NULL;
@@ -18,11 +67,40 @@ struct Node {
     }
 };
 
+/**
+ * List
+ * 
+ * Description:
+ *      This Class uses the Node creation from the previous struct to create a list. 
+ *      The methods in the class peform actions on the list such as adding a value
+ *      to the list, printing the list or printing the tail. This class also has a method
+ *      that adds a new list on to the previous created list
+ *     
+ *      
+ * 
+ * Public Methods:
+ *                                                     
+ *      void                List ()
+ *      void                Push (int val)
+ *      void                Insert (int val)
+ *      void                PrintTail()
+ *      string              Print()
+ *      List                operator(const List &Rhs)
+ *      int                 operator[](index)
+ *
+ * 
+ * Usage: 
+ * 
+ *      List ();                                    // Creates a linked list pointing tail to NULL
+ *                                                
+ *      Node (int n);                               // Creates an instance of a Node Pointer
+ *                                                  // with int n as it's value
+ */
 class List {
 private:
-    Node *Head;
-    Node *Tail;
-    int Size;
+    Node *Head;                                     //Pointer that points to the front of the linked list
+    Node *Tail;                                     //Pointer that points to the end of the lined list  
+    int Size;                                       //Allocates the size of linked list 
 
 public:
     List() {
