@@ -85,21 +85,31 @@ struct Node {
  *      void                Insert (int val)
  *      void                PrintTail()
  *      string              Print()
- *      List                operator(const List &Rhs)
- *      int                 operator[](index)
+ *      List                operator+(const List &Rhs)
+ *      int                 operator[](int index)
  *
  * 
  * Usage: 
  * 
  *      List ();                                    // Creates a linked list pointing tail to NULL
- *                                                
- *      Node (int n);                               // Creates an instance of a Node Pointer
- *                                                  // with int n as it's value
+ *
+ *      Push (int val);                             // Pushes a value to the end of the linked list  
+ *                                                  // with int val as it's value
+ *
+ *      Insert (int val);                           // Inserts a new value wherever it numericall belongs
+ *                                                  // with int val as it's value
+ *
+ *      PrintTail();                                //Prints out the last value of the linked list
+ *      Print();                                    //Prints out the full linked list
+ *      operator+(const List &Rhs);                 //Creates a new list that adds on to previous list
+ *      operator[](int index);                      //Returns a int value as if the list were an array
+ *      
+ *
  */
 class List {
 private:
     Node *Head;                                     //Pointer that points to the front of the linked list
-    Node *Tail;                                     //Pointer that points to the end of the lined list  
+    Node *Tail;                                     //Pointer that points to the end of the linked list  
     int Size;                                       //Allocates the size of linked list 
 
 public:
@@ -207,13 +217,15 @@ public:
 };
 
 int main(int argc, char **argv) {
-    List L1;
+    List L1;                                    //2 variables that create lists
     List L2;
 
+    //pushes values 0 - 24 into list L1 
     for (int i = 0; i < 25; i++) {
         L1.Push(i);
     }
-
+    
+    //pushes values 50 - 99 into list L2
     for (int i = 50; i < 100; i++) {
         L2.Push(i);
     }
