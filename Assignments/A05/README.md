@@ -74,7 +74,7 @@ cout<<count<<endl;
 
 - Count = ___2097152__________________
   
-- Complexity = ________________
+- Complexity = ____O(n^2)_________
   
 ```cpp
 int count=0;
@@ -111,7 +111,7 @@ cout<<count<<endl;
 
 - Count = _____11264________________
   
-- Complexity = ________________
+- Complexity = ____O(n)____________
   
 ```cpp
 int count = 0;
