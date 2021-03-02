@@ -109,7 +109,7 @@ cout<<count<<endl;
 
 -----
 
-- Count = _____________________
+- Count = _____11264________________
   
 - Complexity = ________________
   
@@ -130,9 +130,9 @@ cout<<count<<endl;
 
 -----
 
-- Comparisons = _______________
+- Comparisons = __3_____________
   
-- Complexity = ________________
+- Complexity = __O(log n)______________
   
 ```cpp
 bool found = 0;
@@ -151,9 +151,9 @@ found = BinarySearch(A,n);
 
 -----
 
-- Count = _____________________
+- Count = _____0________________
   
-- Complexity = ________________
+- Complexity = _____O(1)___________
   
 ```cpp
 int count = 0;
