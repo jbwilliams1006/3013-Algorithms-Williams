@@ -91,7 +91,7 @@ cout<<count<<endl;
 
 - Count = ___524800__________________
   
-- Complexity = ________________
+- Complexity = __O(n^3)______________
   
 ```cpp
 int count=0;
