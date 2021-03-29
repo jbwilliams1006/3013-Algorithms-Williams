@@ -7,3 +7,4 @@
 |    2  |  [ P01_](https://github.com/jbwilliams1006/3013-Algorithms-Williams/tree/main/Assignments/P01)      |     Program that demonstrates stack implementation  
 |    3  |  [__P02__](https://github.com/jbwilliams1006/3013-Algorithms-Williams/tree/main/Assignments/P02)      |     Program that demonstrates   
 |    4  |  [__A05__](https://github.com/jbwilliams1006/3013-Algorithms-Williams/blob/main/Assignments/A05)      |     Assignment to ensure complexity comprehension
+|    5  |  [__P04__](https://github.com/jbwilliams1006/3013-Algorithms-Williams/blob/main/Assignments/A05)      |     Assignment to ensure complexity comprehension
